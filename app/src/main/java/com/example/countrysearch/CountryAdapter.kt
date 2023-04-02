@@ -1,6 +1,5 @@
 package com.example.countrysearch
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,6 @@ class CountryAdapter(private val countryList: List<CountryResponse.Country>): Re
        val count = countryList[position]
         holder.country.text = count.country_id
         holder.probability.text = count.probability.toString()
-
-
     }
 
     override fun getItemCount(): Int {

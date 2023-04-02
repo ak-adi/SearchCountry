@@ -1,11 +1,12 @@
 package com.example.countrysearch
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.countrysearch.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
@@ -15,17 +16,13 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
   private lateinit var binding: ActivityMainBinding
   private var searchText = ""
-  private lateinit var adapter : CountryAdapter
-  private lateinit var list : List<CountryResponse.Country>
+  private lateinit var adapter: CountryAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
-      binding.recyclerView.setHasFixedSize(true)
-      binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
-
 
     binding.searchView.setOnQueryTextListener(
         object : SearchView.OnQueryTextListener {
@@ -40,13 +37,15 @@ class MainActivity : AppCompatActivity() {
           }
         })
 
-    binding.button.setOnClickListener { callAPI() }
-      list = listOf<CountryResponse.Country>()
-     adapter = CountryAdapter(list)
-      binding.recyclerView.adapter = adapter
-
+    binding.button.setOnClickListener {
+      it.hideKeyboard()
+      callAPI()
+    }
   }
-
+  private fun View.hideKeyboard() {
+    val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputManager.hideSoftInputFromWindow(windowToken, 0)
+  }
   private fun callAPI() {
     RetrofitCountry()
         .getInstance()!!
@@ -59,11 +58,13 @@ class MainActivity : AppCompatActivity() {
                   response: Response<CountryResponse>
               ) {
                 val responseBody = response.body()
-                Log.d("error", "onResponse: ${responseBody!!.name}")
+                val list = responseBody!!.country
+                adapter = CountryAdapter(list)
+                binding.recyclerView.adapter = adapter
               }
 
               override fun onFailure(call: Call<CountryResponse>, t: Throwable) {
-                Snackbar.make(binding.root, t.message.toString(), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Something went wrong. Please try again.", Snackbar.LENGTH_LONG).show()
               }
             })
   }

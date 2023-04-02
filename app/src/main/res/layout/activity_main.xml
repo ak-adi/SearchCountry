@@ -39,9 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/rounded_bg"
+        android:imeOptions="actionSearch"
         android:inputType="textPersonName"
         app:defaultQueryHint="Search"
-        android:imeOptions="actionSearch"
         app:queryHint="Search" />
 
     <Button
@@ -55,11 +55,12 @@
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        tools:listitem="@layout/list_item"
-        android:id="@+id/recyclerView"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item" />
 
 
 </LinearLayout>
