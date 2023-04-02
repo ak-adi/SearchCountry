@@ -58,7 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        tools:listitem="@layout/list_item" />
+        tools:listitem="@layout/list_item"
+        android:id="@+id/recyclerView"/>
 
 
 </LinearLayout>

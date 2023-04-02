@@ -3,9 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="6dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="10dp">
+    app:cardElevation="10dp"
+    android:id="@+id/cardView"
+    tools:ignore="HardcodedText">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +35,8 @@
                 android:text=" Name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/countryName"/>
 
         </LinearLayout>
 
@@ -55,7 +59,8 @@
                 android:text=" 0.9"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/probability"/>
 
         </LinearLayout>
     </LinearLayout>
