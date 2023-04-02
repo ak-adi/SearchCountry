@@ -2,6 +2,7 @@ package com.example.countrysearch
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import androidx.appcompat.app.AppCompatActivity
 
 
 open class RetrofitCountry {
