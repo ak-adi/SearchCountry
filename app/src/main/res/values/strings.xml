@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CountrySearch</string>
+    <string name="app_name">NationalitySearch</string>
+    <string name="search">Search</string>
 </resources>

@@ -1,37 +1,31 @@
 package com.example.countrysearch
 
 import android.content.Context
-import android.telecom.Call
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.countrysearch.databinding.ListItemBinding
 
-class CountryAdapter(private val context : Context, private val countryList : List<Any>) : RecyclerView.Adapter<CountryAdapter.ViewHolder>(){
+class CountryAdapter(private val context: Context, private val countryList: List<Any>) :
+    ListAdapter<CountryResponse.Country, CountryAdapter.CountryViewHolder>(DIFF_UTIL()) {
+  class CountryViewHolder(binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
+  companion object {
+    class DIFF_UTIL : DiffUtil.ItemCallback<CountryResponse.Country>() {
+      override fun areItemsTheSame(
+          oldItem: CountryResponse.Country,
+          newItem: CountryResponse.Country
+      ): Boolean = oldItem.country_id == newItem.country_id
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.list_item, parent,false)
-        return ViewHolder(itemView)
+      override fun areContentsTheSame(
+          oldItem: CountryResponse.Country,
+          newItem: CountryResponse.Country
+      ): Boolean = oldItem.country_id == newItem.country_id
     }
+  }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val count = countryList[position]
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {}
 
-    }
-
-    override fun getItemCount(): Int {
-         return countryList.size
-    }
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
-        val name = itemView.findViewById<TextView>(R.id.name)
-        val country = itemView.findViewById<TextView>(R.id.country)
-        val search = itemView.findViewById<SearchView>(R.id.searchView)
-    }
-
-
-
+  override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {}
 }
